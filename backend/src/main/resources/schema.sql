@@ -115,6 +115,23 @@ CREATE TABLE IF NOT EXISTS announcement (
     deleted TINYINT DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='公告表';
 
+-- 缴费记录表
+CREATE TABLE IF NOT EXISTS fee_record (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    student_id BIGINT NOT NULL COMMENT '学生ID',
+    room_id BIGINT NOT NULL COMMENT '房间ID',
+    fee_type TINYINT NOT NULL COMMENT '费用类型:1住宿费 2水电费 3物业费 4其他',
+    amount DECIMAL(10,2) NOT NULL COMMENT '金额',
+    bill_cycle VARCHAR(20) NOT NULL COMMENT '账单周期:如2024-01、2024-02',
+    status TINYINT NOT NULL DEFAULT 0 COMMENT '状态:0未缴费 1已缴费',
+    pay_time DATETIME COMMENT '缴费时间',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_student_id (student_id),
+    INDEX idx_room_id (room_id),
+    INDEX idx_status (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='缴费记录表';
+
 -- 操作日志表
 CREATE TABLE IF NOT EXISTS sys_operation_log (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
