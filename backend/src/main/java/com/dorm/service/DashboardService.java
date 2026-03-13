@@ -19,6 +19,7 @@ public class DashboardService {
     private final StudentMapper studentMapper;
     private final RepairRequestMapper repairMapper;
     private final VisitorRecordMapper visitorMapper;
+    private final FeeRecordMapper feeRecordMapper;
 
     public Map<String, Object> getStats() {
         Integer role = UserContext.getRole();
@@ -49,6 +50,8 @@ public class DashboardService {
                 stats.put("myRepairPending", repairMapper.selectCount(new LambdaQueryWrapper<RepairRequest>().eq(RepairRequest::getStudentId, student.getId()).eq(RepairRequest::getStatus, 0)));
                 stats.put("myRepairProcessing", repairMapper.selectCount(new LambdaQueryWrapper<RepairRequest>().eq(RepairRequest::getStudentId, student.getId()).eq(RepairRequest::getStatus, 1)));
                 stats.put("myRepairCompleted", repairMapper.selectCount(new LambdaQueryWrapper<RepairRequest>().eq(RepairRequest::getStudentId, student.getId()).eq(RepairRequest::getStatus, 2)));
+                // 个人缴费统计
+                stats.put("myUnpaidFees", feeRecordMapper.selectCount(new LambdaQueryWrapper<FeeRecord>().eq(FeeRecord::getStudentId, student.getId()).eq(FeeRecord::getStatus, 0)));
             }
         } else {
             // 管理员/宿管角色：显示全局统计数据
@@ -59,6 +62,7 @@ public class DashboardService {
             stats.put("studentCount", studentMapper.selectCount(null));
             stats.put("pendingRepairs", repairMapper.selectCount(new LambdaQueryWrapper<RepairRequest>().eq(RepairRequest::getStatus, 0)));
             stats.put("visitingCount", visitorMapper.selectCount(new LambdaQueryWrapper<VisitorRecord>().eq(VisitorRecord::getStatus, 0)));
+            stats.put("unpaidFees", feeRecordMapper.selectCount(new LambdaQueryWrapper<FeeRecord>().eq(FeeRecord::getStatus, 0)));
         }
         return stats;
     }

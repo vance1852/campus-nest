@@ -73,3 +73,12 @@ export const dashboardApi = {
 export const operationLogApi = {
   page: (params) => request.get('/logs', { params })
 }
+
+export const feeApi = {
+  page: (params) => request.get('/fees', { params }),
+  myPage: (params) => request.get('/fees/my', { params }),
+  create: (data) => request.post('/fees', data),
+  update: (id, data) => request.put(`/fees/${id}`, data),
+  delete: (id) => request.delete(`/fees/${id}`),
+  confirmPayment: (id) => request.put(`/fees/${id}/confirm`)
+}
