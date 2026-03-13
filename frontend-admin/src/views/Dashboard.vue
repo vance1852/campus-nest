@@ -52,6 +52,20 @@
             </div>
           </div>
         </el-card>
+        <el-card class="info-card" shadow="hover">
+          <template #header>
+            <div class="card-header">
+              <el-icon><Money /></el-icon>
+              <span>我的缴费</span>
+            </div>
+          </template>
+          <div class="repair-stats">
+            <div class="mini-stat" v-for="item in studentFeeCards" :key="item.key">
+              <div class="mini-stat-value" :style="{ color: item.color }">{{ stats[item.key] || 0 }}</div>
+              <div class="mini-stat-label">{{ item.label }}</div>
+            </div>
+          </div>
+        </el-card>
       </div>
     </template>
     
@@ -90,7 +104,8 @@ const adminStatCards = [
   { key: 'buildingCount', label: '楼栋数', icon: 'OfficeBuilding', color: '#409EFF' },
   { key: 'roomCount', label: '房间数', icon: 'House', color: '#67C23A' },
   { key: 'studentCount', label: '学生数', icon: 'User', color: '#E6A23C' },
-  { key: 'pendingRepairs', label: '待处理维修', icon: 'Tools', color: '#F56C6C' }
+  { key: 'pendingRepairs', label: '待处理维修', icon: 'Tools', color: '#F56C6C' },
+  { key: 'unpaidFees', label: '待缴费账单', icon: 'Money', color: '#F56C6C' }
 ]
 
 const studentRepairCards = [
@@ -98,6 +113,10 @@ const studentRepairCards = [
   { key: 'myRepairPending', label: '待处理', color: '#E6A23C' },
   { key: 'myRepairProcessing', label: '处理中', color: '#409EFF' },
   { key: 'myRepairCompleted', label: '已完成', color: '#67C23A' }
+]
+
+const studentFeeCards = [
+  { key: 'myUnpaidFees', label: '待缴费', color: '#F56C6C' }
 ]
 
 const typeMap = {
@@ -163,9 +182,11 @@ onMounted(async () => {
 .student-cards {
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
   
   .info-card {
     flex: 1;
+    min-width: 280px;
     margin-bottom: 0;
     display: flex;
     flex-direction: column;

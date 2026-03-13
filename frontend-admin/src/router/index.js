@@ -19,7 +19,8 @@ const routes = [
       { path: 'repairs', name: 'Repairs', component: () => import('../views/Repairs.vue'), meta: { title: '维修管理' } },
       { path: 'visitors', name: 'Visitors', component: () => import('../views/Visitors.vue'), meta: { title: '访客管理' } },
       { path: 'announcements', name: 'Announcements', component: () => import('../views/Announcements.vue'), meta: { title: '公告管理' } },
-      { path: 'logs', name: 'OperationLogs', component: () => import('../views/OperationLogs.vue'), meta: { title: '操作日志', roles: [1] } }
+      { path: 'logs', name: 'OperationLogs', component: () => import('../views/OperationLogs.vue'), meta: { title: '操作日志', roles: [1] } },
+      { path: 'fees', name: 'Fees', component: () => import('../views/Fees.vue'), meta: { title: '缴费管理' } }
     ]
   }
 ]

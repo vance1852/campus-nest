@@ -46,6 +46,10 @@
           <el-icon><Bell /></el-icon>
           <template #title>公告管理</template>
         </el-menu-item>
+        <el-menu-item index="/fees">
+          <el-icon><Money /></el-icon>
+          <template #title>缴费管理</template>
+        </el-menu-item>
         <el-menu-item v-if="userInfo?.role === 1" index="/logs">
           <el-icon><Document /></el-icon>
           <template #title>操作日志</template>
